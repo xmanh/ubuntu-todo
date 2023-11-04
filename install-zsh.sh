@@ -34,9 +34,9 @@ if [ -z "$(grep "zsh-autosuggestions" ~/.zshrc)" ]; then
     {
         echo 'export ZSH=$HOME/.oh-my-zsh'
         echo 'ZSH_THEME="af-magic"'
+        echo 'CASE_SENSITIVE="true"'
         echo 'plugins=(git docker-compose zsh-syntax-highlighting zsh-autosuggestions)'
         echo '# zstyle ":omz:update" mode disabled'
-        echo 'zstyle ":completion:*:*" ignored-patterns "*ORIG_HEAD"'
         echo 'source $ZSH/oh-my-zsh.sh'
         echo ''
         echo '[ -f ~/.bash_aliases ] && source ~/.bash_aliases'
