@@ -1,18 +1,27 @@
 #!/bin/bash
 
-echo 'install PHP8.1'
+PHP=${1:-php8.2}
 
-sudo add-apt-repository -y ppa:ondrej/php
-sudo apt update
-sudo apt install -y php8.1 php8.1-cli php8.1-common \
-  php8.1-fpm php8.1-mysql php8.1-zip php8.1-curl php8.1-gd \
-  php8.1-mbstring php8.1-xml php8.1-bcmath
+if [ -z "$(which $PHP)" ]; then
+  echo "install $PHP"
+  sudo add-apt-repository -y ppa:ondrej/php
+  sudo apt update
+  sudo apt install -y $PHP $PHP-cli $PHP-common \
+    $PHP-fpm $PHP-mysql $PHP-zip $PHP-curl $PHP-gd \
+    $PHP-mbstring $PHP-xml $PHP-bcmath
+  sudo update-alternatives --set php /usr/bin/$PHP
+else
+  echo "$PHP installed"
+fi
 
-echo 'install composer'
-
-wget https://getcomposer.org/download/latest-stable/composer.phar
-chmod +x composer.phar
-sudo mv composer.phar /usr/local/bin/composer
+if [ -z "$(which composer)" ]; then
+  echo 'install composer'
+  wget https://getcomposer.org/download/latest-stable/composer.phar
+  chmod +x composer.phar
+  sudo mv composer.phar /usr/local/bin/composer
+else
+  echo "composer installed"
+fi
 
 php -v
-composer -v
+composer -V

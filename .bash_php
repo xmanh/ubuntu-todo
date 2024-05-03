@@ -1,0 +1,35 @@
+alias pa='php artisan'
+
+_artisan()
+{
+    local arg="${COMP_LINE#php }"
+
+    case "$arg" in
+        artisan*)
+            COMP_WORDBREAKS=${COMP_WORDBREAKS//:}
+            COMMANDS=`php artisan --raw --no-ansi list | sed "s/[[:space:]].*//g"`
+            COMPREPLY=(`compgen -W "$COMMANDS" -- "${COMP_WORDS[COMP_CWORD]}"`)
+            ;;
+        *)
+            COMPREPLY=( $(compgen -o default -- "${COMP_WORDS[COMP_CWORD]}") )
+            ;;
+        esac
+
+    return 0
+}
+complete -F _artisan artisan
+complete -F _artisan pa
+
+php-switch() {
+    sudo update-alternatives --set php /usr/bin/php$1
+    php -v
+}
+
+sail() {
+    if [ -f vendor/bin/sail ]; then
+        vendor/bin/sail $@
+    else
+        echo "Install Sail using the Composer:"
+        echo "composer require laravel/sail --dev"
+    fi
+}
