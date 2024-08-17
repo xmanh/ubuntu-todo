@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# VS Code Python Extension:
+# - Python
+# - Ruff
+
 PYTHON=${1:-3.10.12}
 
 sudo apt install -y make build-essential libssl-dev zlib1g-dev \
